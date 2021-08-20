@@ -1,5 +1,6 @@
 # The Pragmatic Programmer 20th Anniversary Edition (Dave Thomas & Andy Hunt)
 
+
 ## 1 A Pragmatic Philosophy
 
 - an attitude, style or philosophy of approaching problems and their solutions; placing them in their larger context
@@ -45,6 +46,7 @@
 **tip 12** It's both what you say and the way you say it
 
 **tip 13** Build documentation in, don't bolt it on
+
 
 ## 2 A Pragmatic Approach
 
@@ -117,13 +119,107 @@
 		- calculate answers (maybe over distributions of critical values)
 		- keep track of how estimates fared
 
+
 ## 3 The Basic Tools
 
 - the power of plain text
 	- **tip 25**: Keep knowledge in plain text
 
+- shell games
+	- **tip 26**: Use the power of command shells
+	- configure your shell: set color theme, configure the prompt, add often-used commands as simpler aliases, configure command completion
+
+- power editing
+	- **tip 27**: Achieve editor fluency
+	- the challenge list:
+• When editing text, move and make selections by character, word, line, and paragraph.
+• When editing code, move by various syntactic units (matching delimiters, functions, modules, ...).
+• Reindent code following changes.
+• Comment and uncomment blocks of code with a single command.
+• Undo and redo changes.
+• Split the editor window into multiple panels, and navigate between them.
+Power Editing • 81
+Tip 27
+Achieve Editor Fluency
+report erratum • discuss
+• Navigate to a particular line number.
+• Sort selected lines.
+• Search for both strings and regular expressions, and repeat previous searches.
+• Temporarily create multiple cursors based on a selection or on a pattern match, and edit the text at each in parallel.
+• Display compilation errors in the current project.
+• Run the current project’s tests.
+	- grow your editor: get familiar with the editor's extension ecosystem
+
+- version control
+	- a giant undo key!
+	- and so much more: tool for collaboration, deployment pipelines, release tracking, issue tracking, general team interaction, ...
+	- **tip 28**: Always use version control
+	- a thought experiment: if you spill a cup of tea on your laptop and destroy it, how long would it take to get a new machine back to that state?
+	=> store _all_ configuration files, lists of software, scripts, and current projects in a VCS
+
+- debugging
+	- debugging is just problem solving
+	- **tip 29**: Fix the problem, not the blame
+	- a debugging mindset:
+		- **tip 30**: Don't panic
+		- try to discover the root cause of the problem, not just this particular surfaced appearance of it
+	- isolate the bug and write a test to reproduce it: **tip 31**: Failing test before fixing code
+	- but first, **tip 32**: Read the damn error message
+	- binary chop: employ a binary search strategy in debugging (finding the right stack frame where error occurs, narrowing down what kind of input data causes a problem, determine which release has introduced a bug, etc)
+	- process of elimination: start with the assumption that the bug exists in your application code and not on the third-party library, compiler, OS, etc
+		- **tip 33**: "select" isn't broken
+	- **tip 34**: Don't assume it - prove it
+	- a debugging checklist
+• Is the problem being reported a direct result of the underlying bug, or merely a symptom?
+• Is the bug really in the framework you’re using? Is it in the OS? Or is it in your code?
+• If you explained this problem in detail to a coworker, what would you say?
+• If the suspect code passes its unit tests, are the tests complete enough? What happens if you run the tests with this data?
+• Do the conditions that caused this bug exist anywhere else in the system? Are there other bugs still in the larval stage, just waiting to hatch?
+
+- text manipulation
+
+- engineering daybooks: keeping a journal on what you do, learn, sketches of ideas, notes, debugging values, reminders, doodles
+	- a notebook is more reliable than memory
+	- place to store ideas
+	- acts as a kind of a rubber duck to reflect with
+
+
 ## 4 Pragmatic Paranoia
 
+- **tip 36**: You can't write perfect software
+- Bertrand Meyer: Design by Contract, DBC, is a technique that focuses on documenting the rights and responsibilities of software modules to ensure program correctness
+	- preconditions: the routine's requirements => what must be true in order for the routine to be called
+	- postconditions: what the routine is guaranteed to do => state of the world when the routine is done
+	- class invariants: a class ensures that this condition is always true from the perspective of a caller (which means that the class cannot permit unrestricted write access to any data that participates in the invariant); more generally, a state
+	=> the contract between a routine and any potential caller can be stated as "If all the routine's preconditions are met by the caller, the routine shall guarantee that all postconditions and invariants will be true when it completes"
+	=> if either party fails to live up to this (a bug!), an agreed remedy is invoked (such as an exception, program termination)
+	- **tip 37**: Design with contracts
+	- implementing DBC
+		- document the input domain range, boundary conditions, and what the routine promises to deliver (and what it does not) <-> "programming by coincidence"
+		- assertions (runtime checks of logical conditions): make the compiler (partially) check the contract for you
+	- crashing early: much easier to find and diagnose the problem
+
+- dead programs tell no lies
+	- **tip 38**: Crash early
+
+- assertive programming
+	- **tip 39**: Use assertions to prevent the impossible
+	- leave assertions turned on
+
+- how to balance resources
+	- **tip 40**: Finish what you start
+	- a function or object that allocates a resource should be responsible for deallocating it
+	- **tip 41**: Act locally
+	- nest allocations: deallocate resources in the opposite order to that in which they were allocated, and when allocating the same set of resources in different places, always allocate them in the same order
+	- when resources can't be balanced:
+		- programs that use dynamic data structures
+		=> establish a semantic invariant for memory allocation => who is responsible for data in an aggregate data structure
+	- checking the balance: wrappers for each type of resource
+
+- don't outrun your headlights
+	- **tip 42**: Take small steps - always
+	- small, deliberate tests, checking for feedback and adjusting before proceeding
+	- **tip 43**: Avoid fortune-telling
 
 
 ## 5 Bend, or Break
